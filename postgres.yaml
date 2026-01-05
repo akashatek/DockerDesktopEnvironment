@@ -1,0 +1,28 @@
+name: dev
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:17.5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persistent storage for PostgreSQL data
+    networks:
+      - dev_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+
+volumes:
+  postgres_data:
+
+networks:
+  dev_network:
+    name: dev_network
