@@ -1,0 +1,38 @@
+name: dev
+
+services:
+  dolibarr:
+    image: dolibarr/dolibarr
+    container_name: ${DOLI_HOST}
+    environment:
+      DOLI_HOST: ${DOLI_HOST:-dolibarr}
+      DOLI_INIT_DEMO: ${DOLI_INIT_DEMO:-0}
+      DOLI_DB_HOST: ${DOLI_DB_HOST:-mariadb}
+      DOLI_DB_NAME: ${DOLI_DB_NAME:-dolidb}
+      DOLI_DB_USER: ${DOLI_DB_USER:-dolidbuser}
+      DOLI_DB_PASSWORD: ${DOLI_DB_PASSWORD:-dolidbpass}
+      DOLI_URL_ROOT: "${DOLI_URL_ROOT:-http://0.0.0.0}"
+      DOLI_ADMIN_LOGIN: "${DOLI_ADMIN_LOGIN:-admin}"
+      DOLI_ADMIN_PASSWORD: "${DOLI_ADMIN_PASSWORD:-admin}"
+      DOLI_CRON: ${DOLI_CRON:-0}
+      DOLI_CRON_KEY: ${DOLI_CRON_KEY:-mycronsecurekey}
+      WWW_USER_ID: ${WWW_USER_ID:-1000}
+      WWW_GROUP_ID: ${WWW_GROUP_ID:-1000}
+    volumes :
+      - dolibarr_data:/var/www/html
+      - dolibarr_documents:/var/www/documents
+      - dolibarr_custom:/var/www/html/custom
+    ports:
+      - "9001:80"
+    networks:
+      - dev_network
+
+volumes:
+  # This is a mapping (key-value pairs, no starting hyphens)
+  dolibarr_data:
+  dolibarr_documents:
+  dolibarr_custom:
+
+networks:
+  dev_network:
+    name: dev_network

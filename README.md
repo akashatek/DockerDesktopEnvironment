@@ -1,10 +1,9 @@
 # DockerDesktopEnvironment
 
-## Table Of Content
-
-Components:
+Table Of Content
  * [Configuration](#configuration)
  * [Usage](#usage)
+ * [Services](#services)
  
 <a id="configuration"></a>
 ## Configuration
@@ -12,31 +11,13 @@ Components:
 Copy **example.env** to **.env** file.   
 Update the corresponding environment variables accordingly.
 ```
-# LOCALHOST
-LOCALHOST=localhost
-
 # POSTGRES
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=default
 POSTGRES_HOST=postgres
-POSTGRES_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${LOCALHOST}:5432/${POSTGRES_DB}
-
-# MARIADB
-MARIADB_ROOT_PASSWORD=root
-MARIADB_USER=mariadb
-MARIADB_PASSWORD=mariadb
-MARIADB_DB=default
-MARIADB_HOST=mariadb
-MARIADB_URI=mariadb://${MARIADB_USER}:${MARIADB_PASSWORD}@${LOCALHOST}:3306/${MARIADB_DB}
-
-# Listmonk
-LISTMONK_DB_USER=listmonk
-LISTMONK_DB_PASSWORD=listmonk
-LISTMONK_DB_NAME=listmonk
-LISTMONK_HOST=listmonk
-LISTMONK_ADMIN_USER=admin
-LISTMONK_ADMIN_PASSWORD=admin123
+POSTGRES_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
+...
 ```
 
 <a id="usage"></a>
@@ -47,3 +28,20 @@ Usage: dev.sh <service_name> <status>
    - <service_name> is: postgres, mariadb, listmonk
    - <status> is one of: start, stop, delete, test
 ```
+
+
+<a id="services"></a>
+## Services
+
+MariaDB:
+```
+mariadb -h localhost -P 3306 -u root -p${MARIADB_ROOT_PASSWORD}
+```
+
+Postgres:
+````
+PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"
+```
+
+Listmonk: [http://localhost:9000/](http://localhost:9000/)]
+Dolibarr: [http://localhost:9001/](http://localhost:9001/)

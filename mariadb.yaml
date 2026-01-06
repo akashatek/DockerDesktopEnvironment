@@ -1,9 +1,9 @@
 name: dev
 
 services:
-  db:
+  mariadb:
     image: mariadb:11.8
-    container_name: mariadb
+    container_name: ${MARIADB_HOST}
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
@@ -14,9 +14,12 @@ services:
       - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
+    networks:
+      - dev_network
 
 volumes:
   mariadb_data:
 
 networks:
   dev_network:
+    name: dev_network
