@@ -18,12 +18,13 @@ POSTGRES_DB=default
 POSTGRES_HOST=postgres
 POSTGRES_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
 ...
+
 ```
 
 <a id="usage"></a>
 ## Usage
 
-````
+```
 Usage: dev.sh <service_name> <status>
    - <service_name> is: postgres, mariadb, listmonk
    - <status> is one of: start, stop, delete, test
