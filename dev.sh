@@ -7,13 +7,13 @@ case "$1" in
    postgres)
       case "$2" in
          start)
-            docker compose -f postgres.yaml up -d
+            docker compose -f ./Script/postgres.yaml up -d
             ;;
          stop)
-            docker compose -f postgres.yaml down
+            docker compose -f ./Script/postgres.yaml down
             ;;
          delete)
-            docker compose -f postgres.yaml down -v
+            docker compose -f ./Script/postgres.yaml down -v
             ;;
          test)
             echo "> \l"
@@ -24,13 +24,13 @@ case "$1" in
    mariadb)
       case "$2" in
          start)
-            docker compose -f mariadb.yaml up -d
+            docker compose -f ./Script/mariadb.yaml up -d
             ;;
          stop)
-            docker compose -f mariadb.yaml down
+            docker compose -f ./Script/mariadb.yaml down
             ;;
          delete)
-            docker compose -f mariadb.yaml down -v
+            docker compose -f ./Script/mariadb.yaml down -v
             ;;
          test)
             echo "> SHOW DATABASES;"
@@ -42,13 +42,13 @@ case "$1" in
       case "$2" in
          start)
             cat ./SQL/listmonk_create.sql | envsubst | PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"
-            docker compose -f listmonk.yaml up -d
+            docker compose -f ./Script/listmonk.yaml up -d
             ;;
          stop)
-            docker compose -f listmonk.yaml down
+            docker compose -f ./Script/listmonk.yaml down
             ;;
          delete)
-            docker compose -f listmonk.yaml down -v
+            docker compose -f ./Script/listmonk.yaml down -v
             cat ./SQL/listmonk_delete.sql | envsubst | PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"
             ;;
          test)
@@ -60,13 +60,13 @@ case "$1" in
       case "$2" in
          start)
             cat ./SQL/dolibarr_create.sql | envsubst |  mariadb -h localhost -P 3306 -u root -p${MARIADB_ROOT_PASSWORD}
-            docker compose -f dolibarr.yaml up -d
+            docker compose -f ./Script/dolibarr.yaml up -d
             ;;
          stop)
-            docker compose -f dolibarr.yaml down
+            docker compose -f ./Script/dolibarr.yaml down
             ;;
          delete)
-            docker compose -f dolibarr.yaml down -v
+            docker compose -f ./Script/dolibarr.yaml down -v
             cat ./SQL/dolibarr_delete.sql | envsubst |  mariadb -h localhost -P 3306 -u root -p${MARIADB_ROOT_PASSWORD}
             ;;
          test)
