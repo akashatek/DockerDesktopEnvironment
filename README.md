@@ -45,7 +45,7 @@ PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}
 ```
 
 Listmonk:   
-[http://localhost:9000/](http://localhost:9000/)]
+[http://localhost:9000/](http://localhost:9000/)
 
 Dolibarr:   
 [http://localhost:9001/](http://localhost:9001/)
