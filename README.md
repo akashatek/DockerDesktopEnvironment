@@ -44,8 +44,8 @@ Postgres:
 PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"
 ```
 
-Listmonk: 
+Listmonk:   
 [http://localhost:9000/](http://localhost:9000/)]
 
-Dolibarr: 
+Dolibarr:   
 [http://localhost:9001/](http://localhost:9001/)
