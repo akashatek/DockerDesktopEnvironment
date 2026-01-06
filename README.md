@@ -40,9 +40,12 @@ mariadb -h localhost -P 3306 -u root -p${MARIADB_ROOT_PASSWORD}
 ```
 
 Postgres:
-````
+```
 PGPASSWORD="${POSTGRES_PASSWORD}" psql -h localhost -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"
 ```
 
-Listmonk: [http://localhost:9000/](http://localhost:9000/)]
-Dolibarr: [http://localhost:9001/](http://localhost:9001/)
+Listmonk: 
+[http://localhost:9000/](http://localhost:9000/)]
+
+Dolibarr: 
+[http://localhost:9001/](http://localhost:9001/)
