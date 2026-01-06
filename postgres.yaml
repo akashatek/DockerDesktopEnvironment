@@ -2,11 +2,12 @@ name: dev
 
 services:
   postgres:
-    container_name: postgres
+    container_name: ${POSTGRES_HOST}
     image: postgres:17.5
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

@@ -1,0 +1,40 @@
+name: dev
+
+services:
+  listmonk:
+    image: listmonk/listmonk:latest
+    container_name: ${LISTMONK_HOST}
+    restart: unless-stopped
+    ports:
+      - "9000:9000"                                           # To change the externally exposed port, change to: $custom_port:9000
+    networks:
+      - dev_network
+    command: [sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''"]
+                                                              # --config (file) param is set to empty so that listmonk only uses the env vars (below) for config.
+                                                              # --install --idempotent ensures that DB installation happens only once on an empty DB, on the first ever start.
+                                                              # --upgrade automatically runs any DB migrations when a new image is pulled.
+
+    environment:                                              # The same params as in config.toml are passed as env vars here.
+      LISTMONK_app__address: 0.0.0.0:9000
+      LISTMONK_db__user: ${LISTMONK_DB_USER}
+      LISTMONK_db__password: ${LISTMONK_DB_PASSWORD}
+      LISTMONK_db__database: ${LISTMONK_DB_NAME}
+      LISTMONK_db__host: ${POSTGRES_HOST}
+      LISTMONK_db__port: 5432
+      LISTMONK_db__ssl_mode: disable
+      LISTMONK_db__max_open: 25
+      LISTMONK_db__max_idle: 25
+      LISTMONK_db__max_lifetime: 300s
+      TZ: Etc/UTC
+      LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER}           # If these (optional) are set during the first `docker compose up`, then the Super Admin user is automatically created.
+      LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD}   # Otherwise, the user can be setup on the web app after the first visit to http://localhost:9000
+    volumes:
+      - listmonk_data:/listmonk/uploads:rw                        # Mount an uploads directory on the host to /listmonk/uploads inside the container.
+                                                                  # To use this, change directory path in Admin -> Settings -> Media to /listmonk/uploads
+
+volumes:
+  listmonk_data:
+
+networks:
+  dev_network:
+    name: dev_network
