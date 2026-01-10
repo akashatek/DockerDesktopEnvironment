@@ -1,0 +1,5 @@
+-- 1. Remove existing database and user
+DROP DATABASE IF EXISTS ${MONICA_DB_NAME};
+DROP USER IF EXISTS '${MONICA_DB_USER}'@'%';
+
+FLUSH PRIVILEGES;

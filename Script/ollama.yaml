@@ -1,0 +1,27 @@
+name: dev
+
+services:
+  ollama:
+    image: ollama/ollama:0.10.1
+
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama # Persistent storage for Ollama models
+      - ./Ollama/entrypoint.sh:/entrypoint.sh
+    networks:
+      - dev_network
+    deploy:
+      resources:
+        limits:
+          cpus: '5.0'
+          memory: 10G
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
+
+volumes:
+  ollama_data:
+
+networks:
+  dev_network:
+    name: dev_network
+    external: true

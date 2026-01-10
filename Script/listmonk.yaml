@@ -2,11 +2,11 @@ name: dev
 
 services:
   listmonk:
-    image: listmonk/listmonk:latest
+    image: listmonk/listmonk:v6.0.0
     container_name: ${LISTMONK_HOST}
     restart: unless-stopped
     ports:
-      - "9000:9000"                                           # To change the externally exposed port, change to: $custom_port:9000
+      - "9002:9000"                                           # To change the externally exposed port, change to: $custom_port:9000
     networks:
       - dev_network
     command: [sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''"]

@@ -1,0 +1,28 @@
+name: dev
+
+services:
+  vtigercrm:
+    image: vtigercrm/vtigercrm-8.2.0:latest
+    container_name: ${vtiger_container_name:-vtigercrm}
+    ports:
+      - "9003:80"
+    environment:
+      # Pass external database credentials to the Vtiger container
+      DB_HOST: ${VTIGER_DB_HOST}
+      DB_NAME: ${VTIGER_DB_NAME}
+      DB_USER: ${VTIGER_DB_USER}
+      DB_PASS: ${VTIGER_DB_PASSWORD}
+      # Use 'true' to skip the interactive installation wizard, if the database is already populated
+      Vtiger_Install: 'false' 
+    volumes:
+      - vtiger_source_volume:/var/www/html/
+    networks:
+      - dev_network
+
+volumes:
+  vtiger_source_volume:
+
+networks:
+  dev_network:
+    name: dev_network
+    external: true

@@ -25,11 +25,10 @@ POSTGRES_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/$
 ## Usage
 
 ```
-Usage: dev.sh <service_name> <status>
+Usage: setup.sh <service_name> <status>
    - <service_name> is: postgres, mariadb, listmonk
    - <status> is one of: start, stop, delete, test
 ```
-
 
 <a id="services"></a>
 ## Services

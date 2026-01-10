@@ -2,7 +2,7 @@ name: dev
 
 services:
   dolibarr:
-    image: dolibarr/dolibarr
+    image: dolibarr/dolibarr:22.0.4
     container_name: ${DOLI_HOST}
     environment:
       DOLI_HOST: ${DOLI_HOST:-dolibarr}
@@ -23,7 +23,7 @@ services:
       - dolibarr_documents:/var/www/documents
       - dolibarr_custom:/var/www/html/custom
     ports:
-      - "9001:80"
+      - "9000:80"
     networks:
       - dev_network
 
